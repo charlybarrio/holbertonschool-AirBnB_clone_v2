@@ -9,9 +9,9 @@ from models.amenity import Amenity
 
 
 place_amenity = Table('place_amenity', base.metadata,
-                      Column('place_id', String(60), ForeignKey("places.id"), onupdate='CASCADE',
+                      Column('place_id', String(60), ForeignKey("places.id"),
                              primary_key=True, nullable=False),
-                      Column('amenity_id', String(60), ForeignKey("amenities.id"), onupdate='CASCADE',
+                      Column('amenity_id', String(60), ForeignKey("amenities.id"),
                              primary_key=True, nullable=False)
                       )
 
@@ -23,51 +23,52 @@ class Place(BaseModel, base):
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
-    description = Column(String(1024), nullable=True)
+    description = Column(String(1024))
     number_rooms = Column(Integer, nullable=False, default=0)
     number_bathrooms = Column(Integer, nullable=False, default=0)
     max_guest = Column(Integer, nullable=False, default=0)
     price_by_night = Column(Integer, nullable=False, default=0)
-    latitude = Column(Float, nullable=True)
-    longitude = Column(Float, nullable=True)
+    latitude = Column(Float)
+    longitude = Column(Float)
 
     amenity_ids = []
 
     if getenv("HBNB_ENV") == "db":
         reviews = relationship(
-            "Review", cascade="all, delete", backref="places")
+            "Review", cascade="all, delete, delete-orphan", backref="places")
         amenities = relationship(
-            "Amenity", secondary="place_amenity", viewonly=False)
+            "Amenity", secondary="place_amenity", viewonly=False, back_populates="place_amenities")
 
-    @property
-    def reviews(self):
-        """getter for reviews for places"""
+    else:
+        @property
+        def reviews(self):
+            """getter for reviews for places"""
 
-        from models import storage
+            from models import storage
 
-        new_dict = []
-        for review_object in storage.all(Review).items():
-            if self.id == review_object.place_id:
-                new_dict.append(review_object)
-        return new_dict
+            new_dict = []
+            for review_object in storage.all(Review).items():
+                if self.id == review_object.place_id:
+                    new_dict.append(review_object)
+            return new_dict
 
-    @property
-    def amenities(self):
-        """getter for ammenities"""
+        @property
+        def amenities(self):
+            """getter for ammenities"""
 
-        from models import storage
+            from models import storage
 
-        new_dict = []
+            new_dict = []
 
-        amenities = storage.all(Amenity).values()
+            amenities = storage.all(Amenity).values()
 
-        for amenity in amenities:
-            if amenity.id in self.amenity_ids:
-                new_dict.append(amenity)
-        return new_dict
+            for amenity in amenities:
+                if amenity.id in self.amenity_ids:
+                    new_dict.append(amenity)
+            return new_dict
 
-    @amenities.setter
-    def amenities(self, ammenity):
-        """setter for ammenities"""
-        if type(self) == Amenity:
-            self.amenity_ids.append(ammenity.id)
+        @amenities.setter
+        def amenities(self, ammenity):
+            """setter for ammenities"""
+            if type(self) == Amenity:
+                self.amenity_ids.append(ammenity.id)
