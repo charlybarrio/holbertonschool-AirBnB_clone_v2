@@ -1,3 +1,4 @@
+-- Creates database, user and configures it
 CREATE DATABASE if not exists hbnb_dev_db;
 
 CREATE USER IF NOT EXISTS 'hbnb_dev' @'localhost';
