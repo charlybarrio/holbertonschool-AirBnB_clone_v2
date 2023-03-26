@@ -1,6 +1,0 @@
-.gitignore
-__pycache__
-file.json
-devcontainer.json
-test_*
-tmp_*
