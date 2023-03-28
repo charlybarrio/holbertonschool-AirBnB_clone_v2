@@ -1,46 +1,28 @@
 #!/usr/bin/python3
 """ Task 9 module """
 
-from flask import Flask, render_template
-import operator
+from flask import Flask
+from flask import render_template
+from models import storage
+from models.state import State
+from os import getenv
 
 app = Flask(__name__)
 
 
-@app.route('/states', strict_slashes=False)
-def state_print():
-    """prints list of states sorted by name"""
-    from models import storage
-    from models.state import State
-
-    states = storage.all(State)
-
-    new_list = []
-    for value in states.values():
-        new_list.append(value)
-
-    sorted_state_list = sorted(new_list, key=operator.attrgetter('name'))
-
-    return render_template('9-states.html', states_list=sorted_state_list)
+@app.route("/states", strict_slashes=False)
+def show_states():
+    """ displays a HTML page with list of all State """
+    return render_template('9-states.html', state=storage.all(State))
 
 
-@app.route('/states/<id>', strict_slashes=False)
-def state_id_print(id):
-    """prints state and cities sorted"""
-
-    from models import storage
-    from models.state import State
-
-    states = storage.all(State)
-
-    new_list = []
-
-    for value in states.values():
-        if value.id == id:
-            found_state = value
-            city_list = found_state.cities
-            return render_template('9-states.html', found_state=found_state, city_list=city_list)
-    return render_template('9-states.html', found_state='', city_list='')
+@app.route("/states/<id>", strict_slashes=False)
+def show_cities(id):
+    """ displays a HTML page with list of all cities of a State"""
+    for st in storage.all(State).values():
+        if st.id == id:
+            return render_template('9-states.html', state=st)
+    return render_template('9-states.html')
 
 
 @app.teardown_appcontext
