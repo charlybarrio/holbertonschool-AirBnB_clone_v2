@@ -28,7 +28,7 @@ def string(text):
 @app.route('/python/<text>', strict_slashes=False)
 def show(text='is cool'):
     """prints default text or given input"""
-    return f'Python {text}'
+    return f"Python {text.replace('_', ' ')}"
 
 
 if __name__ == '__main__':
