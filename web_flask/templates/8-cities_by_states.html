@@ -9,11 +9,11 @@
     {% for state, cities in states_city_dict.items() %}
         <LI>{{state.id}}: <B>{{state.name}}</B>
             <UL>
-                {%for city in cities %}
+                {% for city in cities %}
                     <LI>{{city.id}}: <B>{{city.name}}</B></LI>
-        </UL>
+                {% endfor %}
+            </UL>
         </LI>
-    {% endfor %}
     {% endfor %}
  </UL>
  </BODY>
