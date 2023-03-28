@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Task 3 module """
 
 from flask import Flask
 
