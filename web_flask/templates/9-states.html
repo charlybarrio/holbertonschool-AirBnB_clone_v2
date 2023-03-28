@@ -6,15 +6,16 @@
  <BODY>
         {% if states_list %}
             {% for state in states_list %}
-                {{state.name}}
+                <li>{{state.id}}: <B>{{state.name}}</B></li>
             {% endfor %}
         {% else %}
-            <H1>{{found_state.name}}</H1>
+            <H1>State: {{found_state.name}}</H1>
+            <H3>Cities:</H3>
             <UL>
                 {% for city in city_list %}
                     <LI>{{city.id}}: <B>{{city.name}}</B></LI>
                 {% endfor %}
         {% endif %}
- </UL>
+ </UL>  
  </BODY>
 </HTML>
