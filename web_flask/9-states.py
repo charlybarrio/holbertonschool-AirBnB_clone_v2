@@ -40,6 +40,7 @@ def state_id_print(id):
             found_state = value
             city_list = found_state.cities
             return render_template('9-states.html', found_state=found_state, city_list=city_list)
+    return render_template('9-states.html', found_state='', city_list='')
 
 
 @app.teardown_appcontext
