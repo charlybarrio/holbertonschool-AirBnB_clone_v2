@@ -9,7 +9,7 @@
     {% for state, cities in states_city_dict.items()|sort(attribute='name') %}
         <LI>{{state.id}}: <B>{{state.name}}</B>
             <UL>
-                {% for city in cities %}
+                {% for city in cities|sort(attribute='name') %}
                     <LI>{{city.id}}: <B>{{city.name}}</B></LI>
                 {% endfor %}
             </UL>
