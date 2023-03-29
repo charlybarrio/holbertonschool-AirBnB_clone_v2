@@ -19,9 +19,9 @@ def hbnb():
 
 
 @app.route('/c/<text>')
-def string(text):
-    """returns given text"""
-    return f"C {text.replace('_', ' ')}"
+def c(text):
+    """returns text"""
+    return "C" + " " + text
 
 
 if __name__ == '__main__':
