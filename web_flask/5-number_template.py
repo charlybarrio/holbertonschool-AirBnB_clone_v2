@@ -38,7 +38,7 @@ def number(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def template_number(n):
-    """returns remplate with numbers"""
+    """returns html page if n is an int"""
     return render_template('5-number.html', n=n)
 
 

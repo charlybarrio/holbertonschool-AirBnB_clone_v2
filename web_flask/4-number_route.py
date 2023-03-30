@@ -32,7 +32,7 @@ def show(text='is cool'):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
-    """returns number if int"""
+    """returns a number if it is a number"""
     return f'{n} is a number'
 
 
