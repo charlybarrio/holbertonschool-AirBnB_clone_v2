@@ -2,8 +2,6 @@
 """task 8"""i
 
 from flask import Flask, render_template
-from models import storage
-from models.state import State
 
 app = Flask(__name__)
 
@@ -12,6 +10,8 @@ app = Flask(__name__)
 def state_print():
     """prints states"""
 
+    from models import storage
+    from models.state import State
     import operator
 
     states = storage.all(State)
