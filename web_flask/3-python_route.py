@@ -20,16 +20,17 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def string(text):
-    """returns given text text"""
-    return f"C {text.replace('_', ' ')}"
+    """returns text"""
+    text = text.replace("_", " ")
+    return "C" + " " + text
 
-
-@app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def show(text='is cool'):
-    """prints default text or given input"""
-    return f"Python {text.replace('_', ' ')}"
-
+def python(text):
+    """returns text"""
+    text = text.replace("_", " ")
+    if text is None:
+        return "Python is cool"
+    return "Python {}".format(text)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
