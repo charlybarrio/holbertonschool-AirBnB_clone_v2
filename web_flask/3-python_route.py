@@ -27,12 +27,9 @@ def string(text):
 
 @app.route('/python/')
 @app.route('/python/<text>', strict_slashes=False)
-def python(text):
-    """returns text"""
-    text = text.replace("_", " ")
-    if text is None:
-        return "Python is cool"
-    return "Python {}".format(text)
+def python(text='is cool'):
+    """return text"""
+    return f"Python {text.replace('_', ' ')}"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
