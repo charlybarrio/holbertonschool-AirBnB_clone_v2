@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""task 8"""i
-
+""" Task 8 """
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -36,4 +35,3 @@ def closing(dummy):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-Footer
