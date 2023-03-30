@@ -9,13 +9,31 @@ app = Flask(__name__)
 
 
 @app.route('/states_list', strict_slashes=False)
-def state_list():
-    """print state and cities"""
-    states_dict = storage.all(State).values()
-    states_city_dict = {}
+def state_print():
+    """prints states"""
 
-    for state in states_dict:
-        states_city_dict[state] = state.cities
+    import operator
 
-    return render_template('7-states_list.html',
-                           states_city_dict=states_city_dict)
+    states = storage.all(State)
+
+    new_list = []
+    for value in states.values():
+        new_list.append(value)
+
+    sorted_list = sorted(new_list, key=operator.attrgetter('name'))
+
+    return render_template('7-states_list.html', states_list=sorted_list)
+
+
+@ app.teardown_appcontext
+def closing(dummy):
+    """closes alchemy session"""
+
+    from models import storage
+
+    storage.close()
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+Footer
