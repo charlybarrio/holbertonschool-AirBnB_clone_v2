@@ -67,5 +67,5 @@ class FileStorage:
                     break
 
     def close(self):
-        """ Deserializes the JSON file to objects """
+        """JSON file to objects """
         self.reload()
