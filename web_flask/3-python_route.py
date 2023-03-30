@@ -24,6 +24,7 @@ def string(text):
     text = text.replace("_", " ")
     return "C" + " " + text
 
+
 @app.route('/python/<text>', strict_slashes=False)
 def python(text):
     """returns text"""
